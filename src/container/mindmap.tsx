@@ -30,21 +30,21 @@ const useMindMap = () => {
 	const ModeType: { [key: string]: UIModeType } = {
 		MOVE: {
 			name: "이동",
-			dragstarted: (elem: any, event: any, d: any) => {
+			dragstarted: (elem: any, _: any, __: any) => {
 				elem.raise().attr("stroke", "black");
 			},
-			dragged: (elem: any, event: any, d: any) => {
+			dragged: (_: any, event: any, d: any) => {
 				d.x = event.x;
 				d.y = event.y;
 			},
-			dragended: (elem: any, event: any, d: any) => {
+			dragended: (elem: any, _: any, d: any) => {
 				elem.attr("stroke", null);
 				updateNode(d);
 			},
 		},
 		CONNECT: {
 			name: "연결",
-			dragstarted: (elem: any, event: any, d: any) => {
+			dragstarted: (_: any, event: any, d: any) => {
 				const se = event.sourceEvent;
 				addNode({
 					id: DUMMY,
@@ -55,7 +55,7 @@ const useMindMap = () => {
 				});
 				addEdge({ source: d.id, target: DUMMY });
 			},
-			dragged: (elem: any, event: any, d: any) => {
+			dragged: (_: any, event: any, __: any) => {
 				const se = event.sourceEvent;
 				updateNode({
 					id: DUMMY,
@@ -65,7 +65,7 @@ const useMindMap = () => {
 					invisible: true,
 				});
 			},
-			dragended: (elem: any, event: any, d: any) => {
+			dragended: (_: any, __: any, d: any) => {
 				removeEdgeByTarget(DUMMY);
 				let closestNode;
 				let closestDist = Infinity;

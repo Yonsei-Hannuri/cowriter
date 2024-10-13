@@ -13,7 +13,7 @@ import { useParagraph } from "./container/store/paragraph";
 import { useTitle } from "./container/store/title";
 import { CREATE_ESSAY, GET_ESSAY, GET_RECENT_SUBJECT_ESSAY } from "./api/essay";
 import { useHistory } from "react-router-dom";
-import { useEssay } from "./container/store/essay";
+// import { useEssay } from "./container/store/essay";
 import EssayList from "./container/essayList";
 import { GET_SUBJECT } from "./api/subject";
 import { useSubject } from "./container/store/subject";
@@ -35,7 +35,7 @@ const intros = [
 export default function () {
 	const history = useHistory();
 	const [page, setPage] = useState<number>(0);
-	const { fetch: fetchEssay } = useEssay();
+	// const { fetch: fetchEssay } = useEssay();
 	const { fetch: fetchMindmap } = useMindmap();
 	const { fetch: fetchSubject } = useSubject();
 	const { fetch: fetchParagraph } = useParagraph();
@@ -49,7 +49,7 @@ export default function () {
 		(async () => {
 			const urlParams = new URLSearchParams(window.location.search);
 			const type = urlParams.get("type");
-			const essays = fetchEssay();
+			//const essays = fetchEssay();
 
 			if (type === "create") {
 				const _subjectId = urlParams.get("subjectId");
