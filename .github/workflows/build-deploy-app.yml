@@ -44,6 +44,6 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Upload to S3
-        working-directory: ./build
+        working-directory: ./dist
         run: |
           aws s3 sync . s3://$S3_BUCKET_NAME
