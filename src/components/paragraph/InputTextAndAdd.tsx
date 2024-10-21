@@ -9,6 +9,13 @@ export default function ({
 	[key: string]: any;
 }) {
 	const [input, setInput] = useState<string>("");
+	const addOnEnter = (e: any) => {
+		const { keyCode } = e;
+		if (keyCode === 13) {
+			setInput("");
+			onAdd(input);
+		}
+	};
 	return (
 		<Container
 			{...props}
@@ -24,8 +31,15 @@ export default function ({
 				onChange={(e) => setInput(e.target.value)}
 				value={input}
 				type="text"
+				as="textarea"
+				rows={3}
 				placeholder="Normal text"
-				style={{ width: "calc(100% - 40px)" }}
+				style={{
+					width: "calc(100% - 40px)",
+					resize: "none",
+					boxShadow: "none",
+				}}
+				onKeyDown={addOnEnter}
 			/>
 			<Button
 				variant="outline-secondary"
