@@ -29,7 +29,7 @@ const useMindMap = () => {
 	const DUMMY = "DUMMY";
 	const ModeType: { [key: string]: UIModeType } = {
 		MOVE: {
-			name: "이동",
+			name: "이동(M)",
 			dragstarted: (elem: any, _: any, __: any) => {
 				elem.raise().attr("stroke", "black");
 			},
@@ -43,7 +43,7 @@ const useMindMap = () => {
 			},
 		},
 		CONNECT: {
-			name: "연결",
+			name: "연결(C)",
 			dragstarted: (_: any, event: any, d: any) => {
 				const se = event.sourceEvent;
 				addNode({
@@ -90,7 +90,7 @@ const useMindMap = () => {
 			},
 		},
 		ADD: {
-			name: "추가",
+			name: "추가(A)",
 			onBackgroundClick: (e: any) => {
 				const word: string = prompt("단어 추가") as string;
 				if (!word) return;
@@ -104,7 +104,7 @@ const useMindMap = () => {
 			},
 		},
 		DELETE: {
-			name: "삭제",
+			name: "삭제(D)",
 			onEdgeClick: (edge: any) => {
 				if (!window.confirm("이 연결을 지우겠습니까?")) return;
 				removeEdge(edge);
@@ -130,11 +130,32 @@ export default function MindMap({}) {
 	const { nodes, edges, ModeType, mode, setMode, init } = useMindMap();
 	const ref = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		(async () => {
-			const $elem = ref.current!;
-			const { width, height } = $elem.getBoundingClientRect();
-			init(width, height);
-		})();
+		const $elem = ref.current!;
+		const { width, height } = $elem.getBoundingClientRect();
+		init(width, height);
+		const onKeyDownModeChange = (e: any) => {
+			const { code } = e;
+			switch (code) {
+				case "KeyA":
+					setMode(ModeType.ADD);
+					break;
+				case "KeyM":
+					setMode(ModeType.MOVE);
+					break;
+				case "KeyC":
+					setMode(ModeType.CONNECT);
+					break;
+				case "KeyD":
+					setMode(ModeType.DELETE);
+					break;
+				default:
+					break;
+			}
+		};
+		window.addEventListener("keydown", onKeyDownModeChange);
+		return () => {
+			window.removeEventListener("keydown", onKeyDownModeChange);
+		};
 	}, []);
 	return (
 		<>
