@@ -21,15 +21,17 @@ export default function () {
 				}}
 			>
 				{paragraphs.map((p, idx) => (
-					<Paragraph
-						key={idx}
-						paragraph={{
-							content: p.content,
-						}}
-						onRemove={() => removeParagraph(p.id)}
-						onCommand={(command) => regenerateParagraph(p.id, command)}
-						onModify={(modified) => modifyParagraph(p.id, modified)}
-					/>
+					<LoadingWrapper isLoading={p.loading} style={{ height: "inherit" }}>
+						<Paragraph
+							key={idx}
+							paragraph={{
+								content: p.content,
+							}}
+							onRemove={() => removeParagraph(p.id)}
+							onCommand={(command) => regenerateParagraph(p.id, command)}
+							onModify={(modified) => modifyParagraph(p.id, modified)}
+						/>
+					</LoadingWrapper>
 				))}
 			</DraggableOrdering>
 		</LoadingWrapper>
