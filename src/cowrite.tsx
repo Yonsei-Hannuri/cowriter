@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 import EssayList from "./container/essayList";
 import { GET_SUBJECT } from "./api/subject";
 import { useSubject } from "./container/store/subject";
+import fileDownload from "./utils/fileDownload";
+import getNewlineCharacter from "./utils/getNewlineCharacter";
 
 const pages = [
 	<SubjectAndMindmap />,
@@ -38,8 +40,8 @@ export default function () {
 	// const { fetch: fetchEssay } = useEssay();
 	const { fetch: fetchMindmap } = useMindmap();
 	const { fetch: fetchSubject } = useSubject();
-	const { fetch: fetchParagraph } = useParagraph();
-	const { fetch: fetchTitle } = useTitle();
+	const { fetch: fetchParagraph, paragraphs } = useParagraph();
+	const { fetch: fetchTitle, title } = useTitle();
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -170,7 +172,17 @@ export default function () {
 					style={{ border: "none", borderRadius: "30px" }}
 					onClick={() => {
 						if (page === 3) {
-							history.push({ pathname: "/detgoriHelper/" });
+							const essayTitle = title;
+							const blob = new Blob(
+								[
+									paragraphs
+										.map((e) => e.content)
+										.join(getNewlineCharacter() + getNewlineCharacter()),
+								],
+								{ type: "text/plain" }
+							);
+							fileDownload(blob, essayTitle);
+							return;
 						}
 						setPage((prev) => {
 							return prev + 1;
