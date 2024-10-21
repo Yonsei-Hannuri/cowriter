@@ -42,11 +42,7 @@ const saveAndUpdate = async (
 	});
 	const {
 		data: { paragraphContent },
-	} = await REGENERATE_PARAGRAPH(
-		essayId,
-		res.data.paragraphId,
-		"이 문단에 내용을 추가해줘"
-	);
+	} = await REGENERATE_PARAGRAPH(essayId, res.data.paragraphId, "INITIAL");
 	_callback(paragraphContent, res.data.paragraphId);
 };
 
@@ -170,7 +166,7 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 					paragraph.loading = false;
 					return { paragraphs: [...state.paragraphs] };
 				});
-			} catch {
+			} catch (e) {
 				set((state) => {
 					const para = state.paragraphs.find((e) => e.id === id)!;
 					para.loading = false;
