@@ -27,7 +27,10 @@ export default function ({
 	});
 
 	return (
-		<div style={{ position: "relative" }} onClick={() => setShow(true)}>
+		<div
+			style={{ position: "relative", width: "100%" }}
+			onClick={() => setShow(true)}
+		>
 			<div className="rounded p-3 border">{paragraph.content}</div>
 			<Toast
 				style={{
