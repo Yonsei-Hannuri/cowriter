@@ -12,6 +12,7 @@ export default function ({
 	const addOnEnter = (e: any) => {
 		const { keyCode } = e;
 		if (keyCode === 13) {
+			e.preventDefault();
 			setInput("");
 			onAdd(input);
 		}
