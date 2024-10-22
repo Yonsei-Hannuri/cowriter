@@ -20,10 +20,13 @@ export default function () {
 					changeOrder(paragraphs[fromIndex].id, toIndexBefore);
 				}}
 			>
-				{paragraphs.map((p, idx) => (
-					<LoadingWrapper isLoading={p.loading} style={{ height: "inherit" }}>
+				{paragraphs.map((p) => (
+					<LoadingWrapper
+						key={p.id}
+						isLoading={p.loading}
+						style={{ height: "inherit" }}
+					>
 						<Paragraph
-							key={idx}
 							paragraph={{
 								content: p.content,
 							}}

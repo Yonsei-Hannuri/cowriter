@@ -197,6 +197,7 @@ export default function () {
 					return (
 						<div
 							style={{ height: "100%", display: idx === page ? "" : "none" }}
+							key={idx}
 						>
 							{p}
 						</div>
