@@ -1,16 +1,14 @@
 export default function ({
-  main,
-  bottom,
+	main,
+	bottom,
 }: {
-  main: React.JSX.Element;
-  bottom: React.JSX.Element;
+	main: React.JSX.Element;
+	bottom: React.JSX.Element;
 }) {
-  return (
-    <div style={{ position: 'relative', height: '100%', overflow: 'hidden' }}>
-      {main}
-      <div style={{ position: 'absolute', width: '100%', bottom: 0 }}>
-        {bottom}
-      </div>
-    </div>
-  );
+	return (
+		<div style={{ position: "relative", height: "100%", overflow: "hidden" }}>
+			<div style={{ height: "calc(100% - 88px)" }}>{main}</div>
+			<div style={{ height: "88px" }}>{bottom}</div>
+		</div>
+	);
 }

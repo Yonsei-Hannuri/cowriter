@@ -15,13 +15,7 @@ export default function () {
 						<FixedBottomLayout
 							main={
 								<OverflowScrollLayout divId="paragraph_div">
-									<>
-										<Paragraph />
-										<br />
-										<br />
-										<br />
-										<br />
-									</>
+									<Paragraph />
 								</OverflowScrollLayout>
 							}
 							bottom={

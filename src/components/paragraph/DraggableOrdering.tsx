@@ -44,8 +44,7 @@ export default function ({
 					/>
 					<div
 						draggable
-						onDragStart={(e) => {
-							e.preventDefault();
+						onDragStart={() => {
 							setFromIndex(idx);
 							setToIndexBefore(-1);
 						}}
