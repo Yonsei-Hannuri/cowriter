@@ -55,7 +55,6 @@ export const useMindmap = create<
 >((set) => ({
 	loading: true,
 	hasInit: false,
-	error: null,
 	essayId: 0,
 	resData: null,
 	width: 0,

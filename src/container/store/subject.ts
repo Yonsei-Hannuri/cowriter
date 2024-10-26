@@ -31,8 +31,8 @@ export const useSubject = create<SubjectState & Fetch>((set) => ({
 			const res = await GET_SUBJECT(subectId);
 			const subject = res.data;
 			set({ subject: subject, loading: false });
-		} catch (error) {
-			set({ error: error as string, loading: false });
+		} catch {
+			set({ loading: false });
 		}
 	},
 }));

@@ -50,7 +50,6 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 	(set) => ({
 		paragraphs: [],
 		loading: true,
-		error: null,
 		essayId: 0,
 		fetch: async (essayId: number) => {
 			const res = await GET_PARAGRAPHS(essayId);

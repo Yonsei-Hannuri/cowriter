@@ -23,7 +23,6 @@ const debounceUpdateTitle = debounce(SAVE_ESSAY_TITLE, debounceDelay);
 export const useTitle = create<TitleState & TitleAction & Fetch>((set) => ({
 	title: "",
 	loading: true,
-	error: "",
 	essayId: 0,
 	getTitleRecommendation: async () => {
 		set(() => {

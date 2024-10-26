@@ -17,7 +17,6 @@ type EssayState = {
 export const useEssay = create<EssayState & Fetch>((set) => ({
 	essays: [],
 	loading: true,
-	error: "",
 
 	fetch: async () => {
 		const { data: essays } = await GET_ESSAYS();
