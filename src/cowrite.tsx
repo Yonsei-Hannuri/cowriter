@@ -19,6 +19,7 @@ import { useSubject } from "./container/store/subject";
 import fileDownload from "./utils/fileDownload";
 import getNewlineCharacter from "./utils/getNewlineCharacter";
 import { useEssay } from "./container/store/essay";
+import LocalStorageObject from "./utils/LocalstorageObject";
 
 const pages = [
 	<SubjectAndMindmap />,
@@ -34,6 +35,8 @@ const intros = [
 	completeIntro,
 ];
 
+const firstIntro = new LocalStorageObject("firstIntroCheck");
+
 export default function () {
 	const history = useHistory();
 	const [page, setPage] = useState<number>(0);
@@ -42,10 +45,14 @@ export default function () {
 	const { fetch: fetchSubject } = useSubject();
 	const { fetch: fetchParagraph, paragraphs } = useParagraph();
 	const { fetch: fetchTitle, title } = useTitle();
-
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	if (!firstIntro.getValue(page)) {
+		firstIntro.setValue(page, "true");
+		intros[page]();
+	}
 
 	useEffect(() => {
 		(async () => {
