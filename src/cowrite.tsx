@@ -3,7 +3,7 @@ import SubjectAndMindmap from "./page/SubjectAndMindmap";
 import MindmapAndParagraph from "./page/MindmapAndParagraph";
 import TitleAndParagraph from "./page/TitleAndParagraph";
 import Complete from "./page/Complete";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { subjectAndMindmapIntro } from "./page/SubjectAndMindmap";
 import { mindmapAndParagraphIntro } from "./page/MindmapAndParagraph";
 import { titleAndParagraphIntro } from "./page/TitleAndParagraph";
