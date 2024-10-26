@@ -102,6 +102,7 @@ export const useMindmap = create<
 	nodes: [],
 	addNode: (newNode: node) =>
 		set((state) => {
+			if (newNode.name.trim() === "") return state;
 			if (state.nodes.some((n) => n.id === newNode.id)) return state;
 			return { nodes: [...state.nodes, newNode] };
 		}),
