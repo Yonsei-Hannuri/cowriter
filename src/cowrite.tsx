@@ -249,16 +249,11 @@ export default function () {
 				</Modal.Header>
 				<Modal.Body>
 					<EssayList
-						onEssayClick={(e) => {
-							console.log(e);
+						onEssayClick={(essay) => {
+							window.location.href = `?type=update&essayId=${essay.essayId}&origin=${origin}`;
 						}}
 					/>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</div>
 	);
