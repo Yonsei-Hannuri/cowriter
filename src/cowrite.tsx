@@ -181,6 +181,7 @@ export default function () {
 						borderRadius: "30px",
 						marginRight: "5px",
 					}}
+					className="fw-bolder"
 					onClick={() => {
 						if (page === 0) {
 							history.push({ pathname: "/" });
@@ -196,6 +197,7 @@ export default function () {
 				<div style={{ width: "4px" }}></div>
 				<button
 					style={{ border: "none", borderRadius: "30px" }}
+					className="fw-bolder"
 					onClick={() => {
 						if (page === 3) {
 							const essayTitle = title;
