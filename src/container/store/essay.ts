@@ -24,6 +24,7 @@ export const useEssay = create<EssayState & Fetch>((set) => ({
 		set(() => {
 			return {
 				essays,
+				loading: false,
 			};
 		});
 	},

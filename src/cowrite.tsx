@@ -19,6 +19,7 @@ import { GET_SUBJECT } from "./api/subject";
 import { useSubject } from "./container/store/subject";
 import fileDownload from "./utils/fileDownload";
 import getNewlineCharacter from "./utils/getNewlineCharacter";
+import { useEssay } from "./container/store/essay";
 
 const pages = [
 	<SubjectAndMindmap />,
@@ -37,7 +38,7 @@ const intros = [
 export default function () {
 	const history = useHistory();
 	const [page, setPage] = useState<number>(0);
-	// const { fetch: fetchEssay } = useEssay();
+	const { fetch: fetchEssay } = useEssay();
 	const { fetch: fetchMindmap } = useMindmap();
 	const { fetch: fetchSubject } = useSubject();
 	const { fetch: fetchParagraph, paragraphs } = useParagraph();
@@ -74,7 +75,6 @@ export default function () {
 				}
 				if (continueWriting) {
 					const { essayId } = recentSubjectEssays[0];
-					console.log(essayId);
 					fetchMindmap(essayId);
 					fetchParagraph(essayId);
 					fetchTitle(essayId);
@@ -98,6 +98,7 @@ export default function () {
 				fetchTitle(essayId);
 				fetchSubject(subjectId);
 			}
+			fetchEssay();
 		})();
 	}, []);
 	return (
