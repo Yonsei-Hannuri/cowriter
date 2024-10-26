@@ -12,6 +12,7 @@ export default function ({
 }) {
 	const [input, setInput] = useState<string>("");
 	const addOnEnter = (e: any) => {
+		e.stopPropagation();
 		const { keyCode } = e;
 		if (keyCode === 13) {
 			e.preventDefault();
