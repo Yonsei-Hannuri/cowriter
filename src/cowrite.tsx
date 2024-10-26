@@ -168,7 +168,9 @@ export default function () {
 						style={{ cursor: "pointer" }}
 						onClick={() => {
 							alert(
-								"오류, 개선, 기능 추가 의견을 듣습니다.\njnh03336@gmail.com"
+								`오류, 개선, 기능 추가 의견을 듣습니다.\n${
+									import.meta.env.VITE_APP_VOC_EMAIL
+								}`
 							);
 						}}
 					>
