@@ -30,15 +30,24 @@ export const useTitle = create<TitleState & TitleAction & Fetch>((set) => ({
 				loading: true,
 			};
 		});
-		const res = await GET_ESSAY_TITLE_RECOMMEND(useTitle.getState().essayId);
-		const titleRecommend = res.data.titleRecommend;
-		SAVE_ESSAY_TITLE(useTitle.getState().essayId, titleRecommend);
-		set(() => {
-			return {
-				title: titleRecommend,
-				loading: false,
-			};
-		});
+		try {
+			const res = await GET_ESSAY_TITLE_RECOMMEND(useTitle.getState().essayId);
+			const titleRecommend = res.data.titleRecommend;
+			SAVE_ESSAY_TITLE(useTitle.getState().essayId, titleRecommend);
+			set(() => {
+				return {
+					title: titleRecommend,
+					loading: false,
+				};
+			});
+		} catch (e) {
+			set(() => {
+				return {
+					loading: false,
+				};
+			});
+			throw e;
+		}
 	},
 	fetch: async (essayId: number) => {
 		const { data } = await GET_ESSAY(essayId);
