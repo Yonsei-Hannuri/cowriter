@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import errorHandlingInit from "./error";
 import App from "./cowrite";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -7,3 +8,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 		<App />
 	</React.StrictMode>
 );
+
+errorHandlingInit();
