@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { Fetch } from "./common";
-import { GET_ESSAY_TITLE_RECOMMEND, SAVE_ESSAY_TITLE } from "../../api/essay";
+import {
+	GET_ESSAY,
+	GET_ESSAY_TITLE_RECOMMEND,
+	SAVE_ESSAY_TITLE,
+} from "../../api/essay";
 import { debounce } from "../../utils/debounce";
 
 type TitleState = {
@@ -13,7 +17,7 @@ type TitleAction = {
 	setTitle: (title: string) => void;
 };
 
-const debounceDelay = 3000;
+const debounceDelay = 1500;
 const debounceUpdateTitle = debounce(SAVE_ESSAY_TITLE, debounceDelay);
 
 export const useTitle = create<TitleState & TitleAction & Fetch>((set) => ({
@@ -38,12 +42,12 @@ export const useTitle = create<TitleState & TitleAction & Fetch>((set) => ({
 		});
 	},
 	fetch: async (essayId: number) => {
-		const res = await GET_ESSAY_TITLE_RECOMMEND(essayId);
-		const title = res.data.titleRecommend;
+		const { data } = await GET_ESSAY(essayId);
+		const title = data.essayTitle;
 		set(() => {
 			return {
 				essayId,
-				title,
+				title: title ? title : "",
 				loading: false,
 			};
 		});
