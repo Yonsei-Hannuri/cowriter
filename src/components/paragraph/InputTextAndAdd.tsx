@@ -3,9 +3,11 @@ import { Container, Form, Button } from "react-bootstrap";
 
 export default function ({
 	onAdd,
+	placeHolder,
 	...props
 }: {
 	onAdd: (text: string) => void;
+	placeHolder?: string;
 	[key: string]: any;
 }) {
 	const [input, setInput] = useState<string>("");
@@ -34,7 +36,7 @@ export default function ({
 				type="text"
 				as="textarea"
 				rows={3}
-				placeholder="Normal text"
+				placeholder={placeHolder ? placeHolder : ""}
 				style={{
 					width: "calc(100% - 40px)",
 					resize: "none",
