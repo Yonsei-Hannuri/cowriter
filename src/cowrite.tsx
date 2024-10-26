@@ -12,7 +12,6 @@ import { useMindmap } from "./container/store/mindmap";
 import { useParagraph } from "./container/store/paragraph";
 import { useTitle } from "./container/store/title";
 import { CREATE_ESSAY, GET_ESSAY, GET_RECENT_SUBJECT_ESSAY } from "./api/essay";
-import { useHistory } from "react-router-dom";
 import EssayList from "./container/essayList";
 import { GET_SUBJECT } from "./api/subject";
 import { useSubject } from "./container/store/subject";
@@ -38,7 +37,6 @@ const intros = [
 const firstIntro = new LocalStorageObject("firstIntroCheck");
 
 export default function () {
-	const history = useHistory();
 	const [page, setPage] = useState<number>(0);
 	const { fetch: fetchEssay } = useEssay();
 	const { fetch: fetchMindmap } = useMindmap();
@@ -46,6 +44,7 @@ export default function () {
 	const { fetch: fetchParagraph, paragraphs } = useParagraph();
 	const { fetch: fetchTitle, title } = useTitle();
 	const [show, setShow] = useState(false);
+	const [origin, setOrigin] = useState("");
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -58,7 +57,8 @@ export default function () {
 		(async () => {
 			const urlParams = new URLSearchParams(window.location.search);
 			const type = urlParams.get("type");
-			//const essays = fetchEssay();
+			const origin = urlParams.get("origin");
+			if (origin) setOrigin(origin);
 
 			if (type === "create") {
 				const _subjectId = urlParams.get("subjectId");
@@ -176,15 +176,12 @@ export default function () {
 					</svg>
 				</div>
 				<button
-					style={{
-						border: "none",
-						borderRadius: "30px",
-						marginRight: "5px",
-					}}
+					style={{ border: "none", borderRadius: "30px" }}
 					className="fw-bolder"
 					onClick={() => {
 						if (page === 0) {
-							history.push({ pathname: "/" });
+							window.location.href = origin;
+							return;
 						}
 						setPage((prev) => {
 							if (prev === 0) return 0;
@@ -194,7 +191,7 @@ export default function () {
 				>
 					{page === 0 ? "나가기" : "이전"}
 				</button>
-				<div style={{ width: "4px" }}></div>
+				<div style={{ width: "8px" }}></div>
 				<button
 					style={{ border: "none", borderRadius: "30px" }}
 					className="fw-bolder"
@@ -217,8 +214,22 @@ export default function () {
 						});
 					}}
 				>
-					{page === 3 ? "완료" : "다음"}
+					{page === 3 ? "저장" : "다음"}
 				</button>
+				{page === 3 && (
+					<>
+						<div style={{ width: "8px" }}></div>
+						<button
+							style={{ border: "none", borderRadius: "30px" }}
+							className="fw-bolder"
+							onClick={() => {
+								window.location.href = origin;
+							}}
+						>
+							완료
+						</button>
+					</>
+				)}
 			</div>
 			<div style={{ height: "95%" }} className="m-2">
 				{pages.map((p, idx) => {
