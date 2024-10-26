@@ -14,7 +14,6 @@ type paragraph = {
 	id: number;
 	content: string;
 	loading: boolean;
-	error: string | null;
 };
 
 type ParagraphState = {
@@ -34,16 +33,22 @@ const saveAndUpdate = async (
 	essayId: number,
 	_paragraphContent: string,
 	placeBefore: number,
-	_callback: (paragraphContent: string, paragraphId: number) => void
+	_callback: (paragraphContent: string, paragraphId: number) => void,
+	_errorHanlder: () => void
 ) => {
-	const res = await CREATE_PARAGRAPH(essayId, {
-		paragraphContent: _paragraphContent,
-		placeBefore,
-	});
-	const {
-		data: { paragraphContent },
-	} = await REGENERATE_PARAGRAPH(essayId, res.data.paragraphId, "INITIAL");
-	_callback(paragraphContent, res.data.paragraphId);
+	try {
+		const res = await CREATE_PARAGRAPH(essayId, {
+			paragraphContent: _paragraphContent,
+			placeBefore,
+		});
+		const {
+			data: { paragraphContent },
+		} = await REGENERATE_PARAGRAPH(essayId, res.data.paragraphId, "INITIAL");
+		_callback(paragraphContent, res.data.paragraphId);
+	} catch (error) {
+		_errorHanlder();
+		throw error;
+	}
 };
 
 export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
@@ -88,6 +93,13 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 								paragraphs: [...state.paragraphs],
 							};
 						});
+					},
+					() => {
+						set((state) => {
+							return {
+								paragraphs: state.paragraphs.filter((p) => !(p.id === tempId)),
+							};
+						});
 					}
 				);
 				return {
@@ -112,7 +124,6 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 				set((state) => {
 					const para = state.paragraphs.find((e) => e.id === id)!;
 					para.loading = false;
-					para.error = "단락 삭제에 실패했습니다.";
 					return { paragraphs: [...state.paragraphs] };
 				});
 			}
@@ -169,9 +180,9 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 				set((state) => {
 					const para = state.paragraphs.find((e) => e.id === id)!;
 					para.loading = false;
-					para.error = "단락 생성에 실패했습니다.";
 					return { paragraphs: [...state.paragraphs] };
 				});
+				throw e;
 			}
 		},
 		modifyParagraph: async (id: number, modified: string) => {
@@ -198,7 +209,6 @@ export const useParagraph = create<ParagraphState & ParagraphAction & Fetch>(
 				set((state) => {
 					const para = state.paragraphs.find((e) => e.id === id)!;
 					para.loading = false;
-					para.error = "단락 수정 실패했습니다.";
 					return { paragraphs: [...state.paragraphs] };
 				});
 			}
