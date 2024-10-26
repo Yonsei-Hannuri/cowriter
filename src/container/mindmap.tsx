@@ -158,7 +158,7 @@ export default function MindMap({}) {
 		};
 	}, []);
 	return (
-		<>
+		<div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
 			<ButtonSelection
 				options={[
 					ModeType.ADD.name,
@@ -174,8 +174,7 @@ export default function MindMap({}) {
 					setMode(mode);
 				}}
 			/>
-			<br />
-			<div ref={ref} style={{ height: "90%" }}>
+			<div ref={ref} style={{ flexGrow: 1 }}>
 				<NetworkGraph
 					nodes={nodes}
 					edges={edges}
@@ -187,6 +186,6 @@ export default function MindMap({}) {
 					onNodeClick={mode.onNodeClick}
 				/>
 			</div>
-		</>
+		</div>
 	);
 }
