@@ -3,7 +3,7 @@ import SubjectAndMindmap from "./page/SubjectAndMindmap";
 import MindmapAndParagraph from "./page/MindmapAndParagraph";
 import TitleAndParagraph from "./page/TitleAndParagraph";
 import Complete from "./page/Complete";
-import { Button, Container, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { subjectAndMindmapIntro } from "./page/SubjectAndMindmap";
 import { mindmapAndParagraphIntro } from "./page/MindmapAndParagraph";
 import { titleAndParagraphIntro } from "./page/TitleAndParagraph";
@@ -13,7 +13,6 @@ import { useParagraph } from "./container/store/paragraph";
 import { useTitle } from "./container/store/title";
 import { CREATE_ESSAY, GET_ESSAY, GET_RECENT_SUBJECT_ESSAY } from "./api/essay";
 import { useHistory } from "react-router-dom";
-// import { useEssay } from "./container/store/essay";
 import EssayList from "./container/essayList";
 import { GET_SUBJECT } from "./api/subject";
 import { useSubject } from "./container/store/subject";
@@ -102,16 +101,17 @@ export default function () {
 		})();
 	}, []);
 	return (
-		<Container
-			className="p-3 d-flex flex-column"
-			style={{ backgroundColor: "#B6D0E2", height: "100%", overflow: "hidden" }}
+		<div
+			className="d-flex flex-column"
+			style={{ backgroundColor: "#23395d", height: "100%", overflow: "hidden" }}
 		>
 			<div
 				style={{
 					height: "5%",
 					display: "flex",
 					justifyContent: "flex-end",
-					padding: "5px",
+					padding: "5px 10px",
+					backgroundColor: "#152238",
 				}}
 			>
 				<div
@@ -126,7 +126,7 @@ export default function () {
 						xmlns="http://www.w3.org/2000/svg"
 						width="30"
 						height="30"
-						fill="currentColor"
+						fill="#EFEFEF"
 						viewBox="0 0 16 16"
 						onClick={handleShow}
 						style={{ cursor: "pointer", transform: "translate(0, -3px)" }}
@@ -134,12 +134,12 @@ export default function () {
 						<path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
 						<path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
 					</svg>
-					<div style={{ width: "10px" }}></div>
+					<div style={{ width: "13px" }}></div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
 						height="24"
-						fill="currentColor"
+						fill="#EFEFEF"
 						className="bi bi-question-circle"
 						viewBox="0 0 16 16"
 						onClick={() => {
@@ -169,6 +169,7 @@ export default function () {
 				>
 					{page === 0 ? "나가기" : "이전"}
 				</button>
+				<div style={{ width: "4px" }}></div>
 				<button
 					style={{ border: "none", borderRadius: "30px" }}
 					onClick={() => {
@@ -193,7 +194,7 @@ export default function () {
 					{page === 3 ? "완료" : "다음"}
 				</button>
 			</div>
-			<div style={{ height: "95%" }}>
+			<div style={{ height: "95%" }} className="m-2">
 				{pages.map((p, idx) => {
 					return (
 						<div
@@ -222,6 +223,6 @@ export default function () {
 					</Button>
 				</Modal.Footer>
 			</Modal>
-		</Container>
+		</div>
 	);
 }
