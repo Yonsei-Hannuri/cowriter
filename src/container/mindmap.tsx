@@ -96,8 +96,8 @@ const useMindMap = () => {
 				const word: string = prompt("단어 추가") as string;
 				if (!word) return;
 				addNode({
-					id: word,
-					name: word,
+					id: word.trim(),
+					name: word.trim(),
 					x: e.offsetX as number,
 					y: e.offsetY as number,
 					invisible: false,
