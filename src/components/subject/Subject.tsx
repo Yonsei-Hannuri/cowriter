@@ -11,8 +11,10 @@ export default function ({
 	const pdf = contents.attatchments?.pdf[0];
 	return (
 		<div style={{ height: "100%" }}>
-			<h2>{subjectTitle}</h2>
-			{pdf && <PDFViewer src={pdf} />}
+			<h2 style={{ height: "6%" }}>{subjectTitle}</h2>
+			<div style={{ overflowY: "auto", height: "92%" }}>
+				{pdf && <PDFViewer src={pdf} />}
+			</div>
 		</div>
 	);
 }
