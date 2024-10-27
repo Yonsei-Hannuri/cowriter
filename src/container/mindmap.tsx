@@ -71,6 +71,7 @@ const useMindMap = () => {
 				let closestDist = Infinity;
 				const curNodes = useMindmap.getState().nodes;
 				const dummyNode = curNodes.find((n) => n.id === DUMMY)!;
+				if (!dummyNode) return;
 				const nodes = curNodes.filter((n) => n.id !== DUMMY);
 				for (const node of nodes) {
 					const dist =

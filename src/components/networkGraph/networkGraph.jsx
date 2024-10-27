@@ -55,8 +55,8 @@ export default function NetworkGraph({
 			.attr("stroke-width", 20) // Thicker line for click area
 			.attr("x1", (d) => d.source.x)
 			.attr("y1", (d) => d.source.y)
-			.attr("x2", (d) => d.target.x)
-			.attr("y2", (d) => d.target.y)
+			.attr("x2", (d) => d.target?.x)
+			.attr("y2", (d) => d.target?.y)
 			.on("click", (e) => {
 				e.stopPropagation();
 				const edges = e.target.__data__;
@@ -74,8 +74,8 @@ export default function NetworkGraph({
 			.attr("stroke-width", 2)
 			.attr("x1", (d) => d.source.x)
 			.attr("y1", (d) => d.source.y)
-			.attr("x2", (d) => d.target.x)
-			.attr("y2", (d) => d.target.y);
+			.attr("x2", (d) => d.target?.x)
+			.attr("y2", (d) => d.target?.y);
 
 		const node = svg
 			.selectAll("g")
